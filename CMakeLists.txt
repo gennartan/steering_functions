@@ -1,13 +1,10 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(steering_functions)
 
-
 ## Compile as C++11
 add_compile_options(-std=c++11)
 
-
 find_package(Eigen3 REQUIRED)
-
 
 ###########
 ## Build ##
@@ -35,9 +32,11 @@ set_target_properties(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME})
 
-set(${PROJECT_NAME}_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/include
-                                 ${EIGEN3_INCLUDE_DIRS}
-    CACHE INTERNAL "${PROJECT_NAME}: Include Directories" FORCE)
+target_include_directories(${PROJECT_NAME} PRIVATE
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+  $<INSTALL_INTERFACE:include>
+  ${EIGEN3_INCLUDE_DIRS}
+  )
 
 install(TARGETS ${PROJECT_NAME}
   EXPORT ${PROJECT_NAME}-targets
