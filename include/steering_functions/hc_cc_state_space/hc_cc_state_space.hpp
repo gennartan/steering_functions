@@ -21,7 +21,6 @@
 #include <cmath>
 #include <vector>
 
-#include "steering_functions/filter/ekf.hpp"
 #include "steering_functions/hc_cc_state_space/hc_cc_circle.hpp"
 #include "steering_functions/steering_functions.hpp"
 #include "steering_functions/utilities/utilities.hpp"
@@ -71,9 +70,6 @@ protected:
 
   /** \brief Parameters of a hc-/cc-circle */
   HC_CC_Circle_Param hc_cc_circle_param_;
-
-  /** \brief Extended Kalman Filter for uncertainty propagation */
-  EKF ekf_;
 };
 
 #endif

@@ -21,6 +21,7 @@ HC_CC_State_Space::HC_CC_State_Space(double kappa, double sigma, double discreti
   : kappa_(kappa), sigma_(sigma), discretization_(discretization)
 {
   // assert positive inputs
+  //std::cout << kappa<<" "<< sigma<<" "<< discretization<<std::endl;
   assert(kappa > 0.0 && sigma > 0.0 && discretization > 0.0);
   // intermediate configuration after first clothoid
   double length_min = kappa / sigma;
@@ -54,7 +55,6 @@ HC_CC_State_Space::HC_CC_State_Space(double kappa, double sigma, double discreti
 void HC_CC_State_Space::set_filter_parameters(const Motion_Noise &motion_noise,
                                               const Measurement_Noise &measurement_noise, const Controller &controller)
 {
-  ekf_.set_parameters(motion_noise, measurement_noise, controller);
 }
 
 vector<State> HC_CC_State_Space::get_path(const State &state1, const State &state2) const
@@ -183,10 +183,10 @@ vector<State_With_Covariance> HC_CC_State_Space::integrate_with_covariance(const
       }
       // predict
       state_pred.state = integrate_ODE(state_curr.state, control, integration_step);
-      ekf_.predict(state_curr, control, integration_step, state_pred);
+      //ekf_.predict(state_curr, control, integration_step, state_pred);
       // update
       state_next.state = state_pred.state;
-      ekf_.update(state_pred, state_next);
+      //ekf_.update(state_pred, state_next);
 
       path_with_covariance.push_back(state_next);
       state_curr.state = state_next.state;

@@ -66,7 +66,6 @@
 #include <limits>
 #include <vector>
 
-#include "steering_functions/filter/ekf.hpp"
 #include "steering_functions/steering_functions.hpp"
 #include "steering_functions/utilities/utilities.hpp"
 
@@ -178,8 +177,6 @@ private:
   /** \brief Discretization of path */
   double discretization_;
 
-  /** \brief Extended Kalman Filter for uncertainty propagation */
-  EKF ekf_;
 };
 
 #endif

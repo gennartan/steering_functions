@@ -528,7 +528,7 @@ void Reeds_Shepp_State_Space::set_filter_parameters(const Motion_Noise &motion_n
                                                     const Measurement_Noise &measurement_noise,
                                                     const Controller &controller)
 {
-  ekf_.set_parameters(motion_noise, measurement_noise, controller);
+  //ekf_.set_parameters(motion_noise, measurement_noise, controller);
 }
 
 double Reeds_Shepp_State_Space::get_distance(const State &state1, const State &state2) const
@@ -681,10 +681,10 @@ vector<State_With_Covariance> Reeds_Shepp_State_Space::integrate_with_covariance
       }
       // predict
       state_pred.state = integrate_ODE(state_curr.state, control, integration_step);
-      ekf_.predict(state_curr, control, integration_step, state_pred);
+      //ekf_.predict(state_curr, control, integration_step, state_pred);
       // update
       state_next.state = state_pred.state;
-      ekf_.update(state_pred, state_next);
+      //ekf_.update(state_pred, state_next);
 
       path_with_covariance.push_back(state_next);
       state_curr.state = state_next.state;
