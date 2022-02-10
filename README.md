@@ -1,5 +1,11 @@
 # Steering Functions for Car-Like Robots
 
+## NOTICE
+
+This project is forked from https://github.com/hbanzhaf/steering_functions
+
+Everything related with ROS has been removed to be able to use it as part as stand-alone C++ libraries.
+
 ## Overview
 
 This package contains a C++ library that implements the following steering functions for car-like robots with limited turning radius (CC = continuous curvature, HC = hybrid curvature):
