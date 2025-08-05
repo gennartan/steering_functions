@@ -65,22 +65,22 @@ public:
     {
       if (c1.forward)
       {
-        theta = angle + HALF_PI - c1.mu;
+        theta = angle + STEERING_HALF_PI - c1.mu;
       }
       else
       {
-        theta = angle + HALF_PI + c1.mu;
+        theta = angle + STEERING_HALF_PI + c1.mu;
       }
     }
     else
     {
       if (c1.forward)
       {
-        theta = angle - HALF_PI + c1.mu;
+        theta = angle - STEERING_HALF_PI + c1.mu;
       }
       else
       {
-        theta = angle - HALF_PI - c1.mu;
+        theta = angle - STEERING_HALF_PI - c1.mu;
       }
     }
     *q = new Configuration(x, y, theta, 0);
@@ -117,12 +117,12 @@ public:
     {
       if (c1.forward)
       {
-        theta = angle + HALF_PI;
+        theta = angle + STEERING_HALF_PI;
         global_frame_change(c1.xc, c1.yc, angle, delta_x, delta_y, &x, &y);
       }
       else
       {
-        theta = angle + HALF_PI;
+        theta = angle + STEERING_HALF_PI;
         global_frame_change(c1.xc, c1.yc, angle, delta_x, -delta_y, &x, &y);
       }
     }
@@ -130,12 +130,12 @@ public:
     {
       if (c1.forward)
       {
-        theta = angle - HALF_PI;
+        theta = angle - STEERING_HALF_PI;
         global_frame_change(c1.xc, c1.yc, angle, delta_x, -delta_y, &x, &y);
       }
       else
       {
-        theta = angle - HALF_PI;
+        theta = angle - STEERING_HALF_PI;
         global_frame_change(c1.xc, c1.yc, angle, delta_x, delta_y, &x, &y);
       }
     }
@@ -413,9 +413,9 @@ public:
     {
       theta = angle - alpha;
       global_frame_change(c1.xc, c1.yc, theta, delta_x, delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, -delta_x, -delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
     if (!c1.left && c1.forward)
     {
@@ -429,9 +429,9 @@ public:
     {
       theta = angle + alpha;
       global_frame_change(c1.xc, c1.yc, theta, delta_x, -delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, -delta_x, delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
   }
 
@@ -452,9 +452,9 @@ public:
     if (c1.left && !c1.forward)
     {
       global_frame_change(c1.xc, c1.yc, theta, delta_x, delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, -delta_x, delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
     if (!c1.left && c1.forward)
     {
@@ -466,9 +466,9 @@ public:
     if (!c1.left && !c1.forward)
     {
       global_frame_change(c1.xc, c1.yc, theta, delta_x, -delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, -delta_x, -delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
   }
 
@@ -1067,9 +1067,9 @@ public:
     {
       theta = angle - alpha;
       global_frame_change(c1.xc, c1.yc, theta, -delta_x, delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, -delta_x, -delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
     if (c1.left && !c1.forward)
     {
@@ -1083,9 +1083,9 @@ public:
     {
       theta = angle + alpha;
       global_frame_change(c1.xc, c1.yc, theta, -delta_x, -delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, -delta_x, delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
     if (!c1.left && !c1.forward)
     {
@@ -1107,9 +1107,9 @@ public:
     if (c1.left && c1.forward)
     {
       global_frame_change(c1.xc, c1.yc, theta, -delta_x, delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, -delta_x, delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
     if (c1.left && !c1.forward)
     {
@@ -1121,9 +1121,9 @@ public:
     if (!c1.left && c1.forward)
     {
       global_frame_change(c1.xc, c1.yc, theta, -delta_x, -delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, -delta_x, -delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
     if (!c1.left && !c1.forward)
     {
@@ -1198,9 +1198,9 @@ public:
     {
       theta = angle - alpha;
       global_frame_change(c1.xc, c1.yc, theta, delta_x, delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, delta_x, -delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
     if (!c1.left && c1.forward)
     {
@@ -1214,9 +1214,9 @@ public:
     {
       theta = angle + alpha;
       global_frame_change(c1.xc, c1.yc, theta, delta_x, -delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, delta_x, delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
     return c1.cc_turn_length(**q1) + configuration_distance(**q1, **q2) + c2.cc_turn_length(**q2);
   }
@@ -1237,9 +1237,9 @@ public:
     if (c1.left && !c1.forward)
     {
       global_frame_change(c1.xc, c1.yc, theta, delta_x, delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, delta_x, delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
     if (!c1.left && c1.forward)
     {
@@ -1251,9 +1251,9 @@ public:
     if (!c1.left && !c1.forward)
     {
       global_frame_change(c1.xc, c1.yc, theta, delta_x, -delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, delta_x, -delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
     return c1.cc_turn_length(**q1) + configuration_distance(**q1, **q2) + c2.cc_turn_length(**q2);
   }
@@ -1313,9 +1313,9 @@ public:
     {
       theta = angle - alpha;
       global_frame_change(c1.xc, c1.yc, theta, -delta_x, delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, delta_x, -delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
     if (c1.left && !c1.forward)
     {
@@ -1329,9 +1329,9 @@ public:
     {
       theta = angle + alpha;
       global_frame_change(c1.xc, c1.yc, theta, -delta_x, -delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, delta_x, delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
     if (!c1.left && !c1.forward)
     {
@@ -1353,9 +1353,9 @@ public:
     if (c1.left && c1.forward)
     {
       global_frame_change(c1.xc, c1.yc, theta, -delta_x, delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, delta_x, delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
     if (c1.left && !c1.forward)
     {
@@ -1367,9 +1367,9 @@ public:
     if (!c1.left && c1.forward)
     {
       global_frame_change(c1.xc, c1.yc, theta, -delta_x, -delta_y, &x, &y);
-      *q1 = new Configuration(x, y, theta + PI, 0);
+      *q1 = new Configuration(x, y, theta + STEERING_PI, 0);
       global_frame_change(c2.xc, c2.yc, theta, delta_x, -delta_y, &x, &y);
-      *q2 = new Configuration(x, y, theta + PI, 0);
+      *q2 = new Configuration(x, y, theta + STEERING_PI, 0);
     }
     if (!c1.left && !c1.forward)
     {

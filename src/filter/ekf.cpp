@@ -65,10 +65,10 @@ void EKF::get_motion_jacobi(const State &state, const Control &control, double i
     double abs_sigma = fabs(control.sigma);
     double sqrt_sigma_inv = 1 / sqrt(abs_sigma);
     double k1 = state.theta - 0.5 * d * state.kappa * state.kappa / control.sigma;
-    double k2 = SQRT_PI_INV * sqrt_sigma_inv * (abs_sigma * integration_step + sgn_sigma * state.kappa);
-    double k3 = SQRT_PI_INV * sqrt_sigma_inv * sgn_sigma * state.kappa;
-    double k4 = k1 + d * sgn_sigma * HALF_PI * k2 * k2;
-    double k5 = k1 + d * sgn_sigma * HALF_PI * k3 * k3;
+    double k2 = STEERING_SQRT_PI_INV * sqrt_sigma_inv * (abs_sigma * integration_step + sgn_sigma * state.kappa);
+    double k3 = STEERING_SQRT_PI_INV * sqrt_sigma_inv * sgn_sigma * state.kappa;
+    double k4 = k1 + d * sgn_sigma * STEERING_HALF_PI * k2 * k2;
+    double k5 = k1 + d * sgn_sigma * STEERING_HALF_PI * k3 * k3;
     double cos_k1 = cos(k1);
     double sin_k1 = sin(k1);
     double cos_k4 = cos(k4);
@@ -86,9 +86,9 @@ void EKF::get_motion_jacobi(const State &state, const Control &control, double i
     F_x(0, 0) = 1.0;
     F_x(1, 1) = 1.0;
 
-    F_x(0, 2) = SQRT_PI * sqrt_sigma_inv *
+    F_x(0, 2) = STEERING_SQRT_PI* sqrt_sigma_inv *
                 (-d * sin_k1 * (fresnel_c_k2 - fresnel_c_k3) - sgn_sigma * cos_k1 * (fresnel_s_k2 - fresnel_s_k3));
-    F_x(1, 2) = SQRT_PI * sqrt_sigma_inv *
+    F_x(1, 2) = STEERING_SQRT_PI* sqrt_sigma_inv *
                 (d * cos_k1 * (fresnel_c_k2 - fresnel_c_k3) - sgn_sigma * sin_k1 * (fresnel_s_k2 - fresnel_s_k3));
     F_x(2, 2) = 1.0;
 
@@ -97,11 +97,11 @@ void EKF::get_motion_jacobi(const State &state, const Control &control, double i
     F_u(1, 0) = sin_k4;
     F_u(2, 0) = state.kappa + control.sigma * integration_step;
 
-    F_u(0, 1) = SQRT_PI * sqrt_sigma_inv * state.kappa *
+    F_u(0, 1) = STEERING_SQRT_PI* sqrt_sigma_inv * state.kappa *
                     (sgn_sigma * sin_k1 * (fresnel_c_k2 - fresnel_c_k3) + d * cos_k1 * (fresnel_s_k2 - fresnel_s_k3)) /
                     abs_sigma +
                 d * (cos_k4 - cos_k5) / control.sigma;
-    F_u(1, 1) = SQRT_PI * sqrt_sigma_inv * state.kappa *
+    F_u(1, 1) = STEERING_SQRT_PI* sqrt_sigma_inv * state.kappa *
                     (-sgn_sigma * cos_k1 * (fresnel_c_k2 - fresnel_c_k3) + d * sin_k1 * (fresnel_s_k2 - fresnel_s_k3)) /
                     abs_sigma +
                 d * (sin_k4 - sin_k5) / control.sigma;

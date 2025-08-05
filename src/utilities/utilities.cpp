@@ -48,16 +48,16 @@ void polar(double x, double y, double &r, double &theta)
 
 double twopify(double alpha)
 {
-  return alpha - TWO_PI * floor(alpha / TWO_PI);
+  return alpha - STEERING_TWO_PI * floor(alpha / STEERING_TWO_PI);
 }
 
 double pify(double alpha)
 {
-  double v = fmod(alpha, TWO_PI);
-  if (v < -PI)
-    v += TWO_PI;
-  else if (v > PI)
-    v -= TWO_PI;
+  double v = fmod(alpha, STEERING_TWO_PI);
+  if (v < -STEERING_PI)
+    v += STEERING_TWO_PI;
+  else if (v > STEERING_PI)
+    v -= STEERING_TWO_PI;
   return v;
 }
 
@@ -90,8 +90,8 @@ void fresnel_0_8(double x, double &S_f, double &C_f)
   A += chebev_a[17] * T34;
 
   double sqrt_x = sqrt(x);
-  C_f = SQRT_TWO_PI_INV * sqrt_x * A;
-  S_f = SQRT_TWO_PI_INV * sqrt_x * B;
+  C_f = STEERING_SQRT_TWO_PI_INV * sqrt_x * A;
+  S_f = STEERING_SQRT_TWO_PI_INV * sqrt_x * B;
   return;
 }
 
@@ -124,14 +124,14 @@ void fresnel_8_inf(double x, double &S_f, double &C_f)
   double sin_x = sin(x);
   double cos_x = cos(x);
   double sqrt_x = sqrt(x);
-  C_f = 0.5 - SQRT_TWO_PI_INV * (E * cos_x / (2 * x) - F * sin_x) / sqrt_x;
-  S_f = 0.5 - SQRT_TWO_PI_INV * (E * sin_x / (2 * x) + F * cos_x) / sqrt_x;
+  C_f = 0.5 - STEERING_SQRT_TWO_PI_INV * (E * cos_x / (2 * x) - F * sin_x) / sqrt_x;
+  S_f = 0.5 - STEERING_SQRT_TWO_PI_INV * (E * sin_x / (2 * x) + F * cos_x) / sqrt_x;
   return;
 }
 
 void fresnel(double s, double &S_f, double &C_f)
 {
-  double x = HALF_PI * s * s;
+  double x = STEERING_HALF_PI * s * s;
   if (x <= 8.0)
     fresnel_0_8(x, S_f, C_f);
   else
@@ -153,8 +153,8 @@ void end_of_clothoid(double x_i, double y_i, double theta_i, double kappa_i, dou
   double abs_sigma = fabs(sigma);
   double sqrt_sigma_inv = 1 / sqrt(abs_sigma);
   double k1 = theta_i - 0.5 * direction * kappa_i * kappa_i / sigma;
-  double k2 = SQRT_PI_INV * sqrt_sigma_inv * (abs_sigma * length + sgn_sigma * kappa_i);
-  double k3 = SQRT_PI_INV * sqrt_sigma_inv * sgn_sigma * kappa_i;
+  double k2 = STEERING_SQRT_PI_INV * sqrt_sigma_inv * (abs_sigma * length + sgn_sigma * kappa_i);
+  double k3 = STEERING_SQRT_PI_INV * sqrt_sigma_inv * sgn_sigma * kappa_i;
   double cos_k1 = cos(k1);
   double sin_k1 = sin(k1);
   double fresnel_s_k2;
@@ -164,10 +164,10 @@ void end_of_clothoid(double x_i, double y_i, double theta_i, double kappa_i, dou
   fresnel(k2, fresnel_s_k2, fresnel_c_k2);
   fresnel(k3, fresnel_s_k3, fresnel_c_k3);
   *x_f = x_i +
-         SQRT_PI * sqrt_sigma_inv *
+         STEERING_SQRT_PI* sqrt_sigma_inv *
              (direction * cos_k1 * (fresnel_c_k2 - fresnel_c_k3) - sgn_sigma * sin_k1 * (fresnel_s_k2 - fresnel_s_k3));
   *y_f = y_i +
-         SQRT_PI * sqrt_sigma_inv *
+         STEERING_SQRT_PI* sqrt_sigma_inv *
              (direction * sin_k1 * (fresnel_c_k2 - fresnel_c_k3) + sgn_sigma * cos_k1 * (fresnel_s_k2 - fresnel_s_k3));
 
   // theta_f = theta_i + kappa_i*length + 0.5*sigma*length^2

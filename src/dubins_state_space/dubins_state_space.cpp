@@ -142,7 +142,7 @@ Dubins_State_Space::Dubins_Path dubinsRLR(double d, double alpha, double beta)
   double tmp = .125 * (6. - d * d + 2. * (ca * cb + sa * sb + d * (sa - sb)));
   if (fabs(tmp) < 1.)
   {
-    double p = TWO_PI - acos(tmp);
+    double p = STEERING_TWO_PI - acos(tmp);
     double theta = atan2(ca - cb, d - sa + sb);
     double t = twopify(alpha - theta + .5 * p);
     double q = twopify(alpha - beta - t + p);
@@ -160,7 +160,7 @@ Dubins_State_Space::Dubins_Path dubinsLRL(double d, double alpha, double beta)
   double tmp = .125 * (6. - d * d + 2. * (ca * cb + sa * sb - d * (sa - sb)));
   if (fabs(tmp) < 1.)
   {
-    double p = TWO_PI - acos(tmp);
+    double p = STEERING_TWO_PI - acos(tmp);
     double theta = atan2(-ca + cb, d + sa - sb);
     double t = twopify(-alpha + theta + .5 * p);
     double q = twopify(beta - alpha - t + p);

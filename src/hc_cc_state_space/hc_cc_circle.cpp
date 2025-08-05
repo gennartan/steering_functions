@@ -119,7 +119,7 @@ double HC_CC_Circle::deflection(const Configuration &q) const
 double HC_CC_Circle::D1(double alpha) const
 {
   double fresnel_s, fresnel_c;
-  double s = sqrt(2 * alpha / PI);
+  double s = sqrt(2 * alpha / STEERING_PI);
   fresnel(s, fresnel_s, fresnel_c);
   return cos(alpha) * fresnel_c + sin(alpha) * fresnel_s;
 }
@@ -131,7 +131,7 @@ double HC_CC_Circle::rs_circular_deflection(double delta) const
     return delta;
   // irregular rs-turn
   else
-    return (delta <= PI) ? delta : delta - TWO_PI;
+    return (delta <= STEERING_PI) ? delta : delta - STEERING_TWO_PI;
 }
 
 double HC_CC_Circle::rs_turn_length(const Configuration &q) const
@@ -149,7 +149,7 @@ double HC_CC_Circle::hc_circular_deflection(double delta) const
   if (this->regular)
   {
     if (delta < delta_min_twopified)
-      return TWO_PI + delta - delta_min_twopified;
+      return STEERING_TWO_PI + delta - delta_min_twopified;
     else
       return delta - delta_min_twopified;
   }
@@ -160,12 +160,12 @@ double HC_CC_Circle::hc_circular_deflection(double delta) const
     if (delta < delta_min_twopified)
     {
       delta_arc1 = delta - delta_min_twopified;  // negative
-      delta_arc2 = delta_arc1 + TWO_PI;          // positive
+      delta_arc2 = delta_arc1 + STEERING_TWO_PI;          // positive
     }
     else
     {
       delta_arc1 = delta - delta_min_twopified;  // positive
-      delta_arc2 = delta_arc1 - TWO_PI;          // negative
+      delta_arc2 = delta_arc1 - STEERING_TWO_PI;          // negative
     }
     return (fabs(delta_arc1) < fabs(delta_arc2)) ? delta_arc1 : delta_arc2;
   }
@@ -185,7 +185,7 @@ bool HC_CC_Circle::cc_elementary_sharpness(const Configuration &q, double delta,
   //   Planning for Car-Like Vehicles," in IEEE/RSJ International Conference on Intelligent Robots and Systems, 1997.
   if (distance > get_epsilon())
   {
-    sigma0 = 4 * PI * pow(this->D1(0.5 * delta), 2) / pow(distance, 2);
+    sigma0 = 4 * STEERING_PI * pow(this->D1(0.5 * delta), 2) / pow(distance, 2);
     if (!this->left)
     {
       sigma0 = -sigma0;
@@ -202,7 +202,7 @@ double HC_CC_Circle::cc_circular_deflection(double delta) const
   if (this->regular)
   {
     if (delta < two_delta_min_twopified)
-      return TWO_PI + delta - two_delta_min_twopified;
+      return STEERING_TWO_PI + delta - two_delta_min_twopified;
     else
       return delta - two_delta_min_twopified;
   }
@@ -213,12 +213,12 @@ double HC_CC_Circle::cc_circular_deflection(double delta) const
     if (delta < two_delta_min_twopified)
     {
       delta_arc1 = delta - two_delta_min_twopified;  // negative
-      delta_arc2 = delta_arc1 + TWO_PI;              // positive
+      delta_arc2 = delta_arc1 + STEERING_TWO_PI;              // positive
     }
     else
     {
       delta_arc1 = delta - two_delta_min_twopified;  // positive
-      delta_arc2 = delta_arc1 - TWO_PI;              // negative
+      delta_arc2 = delta_arc1 - STEERING_TWO_PI;              // negative
     }
     return (fabs(delta_arc1) < fabs(delta_arc2)) ? delta_arc1 : delta_arc2;
   }
@@ -308,19 +308,19 @@ bool configuration_on_hc_cc_circle(const HC_CC_Circle &c, const Configuration &q
   double angle = atan2(q.y - c.yc, q.x - c.xc);
   if (c.left && c.forward)
   {
-    angle = angle + HALF_PI - c.mu;
+    angle = angle + STEERING_HALF_PI - c.mu;
   }
   if (c.left && !c.forward)
   {
-    angle = angle + HALF_PI + c.mu;
+    angle = angle + STEERING_HALF_PI + c.mu;
   }
   if (!c.left && c.forward)
   {
-    angle = angle - HALF_PI + c.mu;
+    angle = angle - STEERING_HALF_PI + c.mu;
   }
   if (!c.left && !c.forward)
   {
-    angle = angle - HALF_PI - c.mu;
+    angle = angle - STEERING_HALF_PI - c.mu;
   }
   angle = twopify(angle);
   return fabs(q.theta - angle) < get_epsilon();
