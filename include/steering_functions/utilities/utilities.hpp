@@ -34,7 +34,9 @@
 
 using namespace std;
 
+#ifndef PI
 #define PI 3.1415926535897932384
+#endif
 #define HALF_PI 1.5707963267948966192
 #define TWO_PI 6.2831853071795864770
 #define SQRT_PI 1.7724538509055160273
